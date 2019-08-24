@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
 import jp.cordea.daggerandroidfullunderstanding.R
+import javax.inject.Inject
 
 class EditTagFragment : Fragment() {
-    private lateinit var viewModel: EditTagViewModel
+    @Inject
+    lateinit var viewModel: Lazy<EditTagViewModel>
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -27,8 +28,5 @@ class EditTagFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EditTagViewModel::class.java)
-        // TODO: Use the ViewModel
     }
-
 }

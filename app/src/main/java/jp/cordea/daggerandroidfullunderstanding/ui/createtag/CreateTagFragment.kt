@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
 import jp.cordea.daggerandroidfullunderstanding.R
+import javax.inject.Inject
 
 class CreateTagFragment : Fragment() {
-    private lateinit var viewModel: CreateTagViewModel
+    @Inject
+    lateinit var viewModel: Lazy<CreateTagViewModel>
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -27,8 +28,5 @@ class CreateTagFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CreateTagViewModel::class.java)
-        // TODO: Use the ViewModel
     }
-
 }
