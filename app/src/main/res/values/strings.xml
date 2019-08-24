@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="add_edit_text_hint">New text</string>
     <string name="submit_button">Submit</string>
+    <string name="menu_create">Create tag</string>
+    <string name="menu_edit">Edit tag</string>
 </resources>
