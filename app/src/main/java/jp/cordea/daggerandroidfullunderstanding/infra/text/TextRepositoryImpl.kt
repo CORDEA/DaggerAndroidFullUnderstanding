@@ -1,6 +1,13 @@
 package jp.cordea.daggerandroidfullunderstanding.infra.text
 
-class TextRepositoryImpl : TextRepository {
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class TextRepositoryImpl @Inject constructor(
+    private val localDataSource: TextLocalDataSource,
+    private val remoteDataSource: TextRemoteDataSource
+) : TextRepository {
     override fun findAll(): List<TextResponse> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

@@ -1,6 +1,13 @@
 package jp.cordea.daggerandroidfullunderstanding.infra.tag
 
-class TagRepositoryImpl : TagRepository {
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class TagRepositoryImpl @Inject constructor(
+    private val localDataSource: TagLocalDataSource,
+    private val remoteDataSource: TagRemoteDataSource
+) : TagRepository {
     override fun findAll(): List<TagResponse> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

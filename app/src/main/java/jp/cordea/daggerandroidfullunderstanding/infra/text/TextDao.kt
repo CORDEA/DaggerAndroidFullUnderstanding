@@ -1,3 +1,9 @@
 package jp.cordea.daggerandroidfullunderstanding.infra.text
 
-class TextDao
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class TextDao @Inject constructor() {
+    fun getTexts(): List<TextResponse> = emptyList()
+}
