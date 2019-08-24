@@ -15,4 +15,9 @@
         android:name="jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagFragment"
         android:label="create_tag_fragment"
         tools:layout="@layout/create_tag_fragment" />
+    <fragment
+        android:id="@+id/editTagFragment"
+        android:name="jp.cordea.daggerandroidfullunderstanding.ui.edittag.EditTagFragment"
+        android:label="edit_tag_fragment"
+        tools:layout="@layout/edit_tag_fragment" />
 </navigation>
