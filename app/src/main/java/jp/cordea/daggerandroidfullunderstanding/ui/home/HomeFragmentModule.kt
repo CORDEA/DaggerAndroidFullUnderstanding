@@ -1,10 +1,40 @@
 package jp.cordea.daggerandroidfullunderstanding.ui.home
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.createViewModelLazy
+import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 
 @Module
 interface HomeFragmentModule {
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+        modules = [
+            HomeFragmentBindModule::class
+        ]
+    )
     fun contributeHomeFragment(): HomeFragment
+}
+
+@Module
+abstract class HomeFragmentBindModule {
+    @Module
+    companion object {
+        @Provides
+        @JvmStatic
+        fun provideViewModel(
+            fragment: Fragment,
+            factory: ViewModelFactory<HomeViewModel>
+        ): Lazy<HomeViewModel> =
+            fragment.createViewModelLazy(
+                HomeViewModel::class,
+                { fragment.viewModelStore },
+                { factory }
+            )
+    }
+
+    @Binds
+    abstract fun bindFragment(fragment: HomeFragment): Fragment
 }
