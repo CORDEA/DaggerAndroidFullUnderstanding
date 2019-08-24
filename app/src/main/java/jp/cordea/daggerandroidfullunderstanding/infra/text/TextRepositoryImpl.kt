@@ -8,11 +8,9 @@ class TextRepositoryImpl @Inject constructor(
     private val localDataSource: TextLocalDataSource,
     private val remoteDataSource: TextRemoteDataSource
 ) : TextRepository {
-    override fun findAll(): List<TextResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun findAll(forceRefresh: Boolean): List<TextResponse> =
+        if (forceRefresh) remoteDataSource.findAll() else localDataSource.findAll()
 
-    override fun find(id: Long): TextResponse {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun find(forceRefresh: Boolean, id: Long): TextResponse =
+        if (forceRefresh) remoteDataSource.find(id) else localDataSource.find(id)
 }

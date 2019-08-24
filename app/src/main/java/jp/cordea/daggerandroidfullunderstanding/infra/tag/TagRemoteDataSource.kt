@@ -7,12 +7,8 @@ import javax.inject.Singleton
 @Singleton
 class TagRemoteDataSource @Inject constructor(
     private val apiClient: ApiClient
-) : TagRepository {
-    override fun findAll(): List<TagResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+) : TagDataSource {
+    override fun findAll(): List<TagResponse> = apiClient.fetchTags()
 
-    override fun find(id: String): TagResponse {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun find(id: Long): TagResponse = apiClient.fetchTags().first { it.id == id }
 }

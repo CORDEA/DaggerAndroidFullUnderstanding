@@ -8,11 +8,9 @@ class TagRepositoryImpl @Inject constructor(
     private val localDataSource: TagLocalDataSource,
     private val remoteDataSource: TagRemoteDataSource
 ) : TagRepository {
-    override fun findAll(): List<TagResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun findAll(forceRefresh: Boolean): List<TagResponse> =
+        if (forceRefresh) remoteDataSource.findAll() else localDataSource.findAll()
 
-    override fun find(id: String): TagResponse {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun find(forceRefresh: Boolean, id: Long): TagResponse =
+        if (forceRefresh) remoteDataSource.find(id) else localDataSource.find(id)
 }

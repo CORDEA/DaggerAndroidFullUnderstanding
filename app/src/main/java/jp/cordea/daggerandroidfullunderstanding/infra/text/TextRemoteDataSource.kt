@@ -7,12 +7,8 @@ import javax.inject.Singleton
 @Singleton
 class TextRemoteDataSource @Inject constructor(
     private val apiClient: ApiClient
-) : TextRepository {
-    override fun findAll(): List<TextResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+) : TextDataSource {
+    override fun findAll(): List<TextResponse> = apiClient.fetchTexts()
 
-    override fun find(id: Long): TextResponse {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun find(id: Long): TextResponse = apiClient.fetchTexts().first { it.id == id }
 }

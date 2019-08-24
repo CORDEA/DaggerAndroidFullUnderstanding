@@ -6,12 +6,8 @@ import javax.inject.Singleton
 @Singleton
 class TextLocalDataSource @Inject constructor(
     private val textDao: TextDao
-) : TextRepository {
-    override fun findAll(): List<TextResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+) : TextDataSource {
+    override fun findAll(): List<TextResponse> = textDao.getTexts()
 
-    override fun find(id: Long): TextResponse {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun find(id: Long): TextResponse = textDao.getTexts().first { it.id == id }
 }

@@ -6,12 +6,8 @@ import javax.inject.Singleton
 @Singleton
 class TagLocalDataSource @Inject constructor(
     private val tagDao: TagDao
-) : TagRepository {
-    override fun findAll(): List<TagResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+) : TagDataSource {
+    override fun findAll(): List<TagResponse> = tagDao.getTags()
 
-    override fun find(id: String): TagResponse {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun find(id: Long): TagResponse = tagDao.getTags().first { it.id == id }
 }

@@ -1,6 +1,6 @@
 package jp.cordea.daggerandroidfullunderstanding.infra.tag
 
 interface TagRepository {
-    fun findAll(): List<TagResponse>
-    fun find(id: String): TagResponse
+    fun findAll(forceRefresh: Boolean): List<TagResponse>
+    fun find(forceRefresh: Boolean, id: Long): TagResponse
 }
