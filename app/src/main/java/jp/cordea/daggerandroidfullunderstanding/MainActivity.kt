@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import jp.cordea.daggerandroidfullunderstanding.ui.add.AddBottomSheetDialogFragment
+import jp.cordea.daggerandroidfullunderstanding.ui.menu.MenuBottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +16,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(bar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            AddBottomSheetDialogFragment.newInstance().show(supportFragmentManager)
         }
     }
 
@@ -28,7 +28,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.action_settings -> true
-            android.R.id.home -> true
+            android.R.id.home -> {
+                MenuBottomSheetDialogFragment.newInstance().show(supportFragmentManager)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
 }
