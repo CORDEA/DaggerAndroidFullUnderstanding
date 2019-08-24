@@ -10,4 +10,9 @@
         android:name="jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/createTagFragment"
+        android:name="jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagFragment"
+        android:label="create_tag_fragment"
+        tools:layout="@layout/create_tag_fragment" />
 </navigation>
