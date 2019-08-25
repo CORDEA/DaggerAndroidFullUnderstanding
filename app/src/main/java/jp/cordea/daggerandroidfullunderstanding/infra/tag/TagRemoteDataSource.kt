@@ -9,9 +9,11 @@ import javax.inject.Singleton
 @Singleton
 class TagRemoteDataSource @Inject constructor(
     private val apiClient: ApiClient
-) : TagDataSource {
-    override fun findAll(): Flow<List<TagResponse>> = apiClient.fetchTags()
+) {
+    fun add(request: TagRequest): Flow<TagResponse> = apiClient.addTag(request)
 
-    override fun find(id: Long): Flow<TagResponse> =
+    fun findAll(): Flow<List<TagResponse>> = apiClient.fetchTags()
+
+    fun find(id: Long): Flow<TagResponse> =
         findAll().map { tags -> tags.first { it.id == id } }
 }

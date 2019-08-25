@@ -9,9 +9,11 @@ import javax.inject.Singleton
 @Singleton
 class TextRemoteDataSource @Inject constructor(
     private val apiClient: ApiClient
-) : TextDataSource {
-    override fun findAll(): Flow<List<TextResponse>> = apiClient.fetchTexts()
+) {
+    fun add(request: TextRequest): Flow<TextResponse> = apiClient.addText(request)
 
-    override fun find(id: Long): Flow<TextResponse> =
+    fun findAll(): Flow<List<TextResponse>> = apiClient.fetchTexts()
+
+    fun find(id: Long): Flow<TextResponse> =
         findAll().map { texts -> texts.first { it.id == id } }
 }

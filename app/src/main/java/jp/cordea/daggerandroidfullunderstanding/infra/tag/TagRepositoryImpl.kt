@@ -13,6 +13,10 @@ class TagRepositoryImpl @Inject constructor(
     private val remoteDataSource: TagRemoteDataSource
 ) : TagRepository {
     @ExperimentalCoroutinesApi
+    override fun add(request: TagRequest): Flow<TagResponse> =
+        remoteDataSource.add(request).flowOn(Dispatchers.IO)
+
+    @ExperimentalCoroutinesApi
     override fun findAll(forceRefresh: Boolean): Flow<List<TagResponse>> =
         if (forceRefresh) remoteDataSource.findAll() else localDataSource.findAll()
             .flowOn(Dispatchers.IO)

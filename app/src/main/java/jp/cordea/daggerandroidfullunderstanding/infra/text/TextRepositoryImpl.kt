@@ -13,6 +13,10 @@ class TextRepositoryImpl @Inject constructor(
     private val remoteDataSource: TextRemoteDataSource
 ) : TextRepository {
     @ExperimentalCoroutinesApi
+    override fun add(request: TextRequest): Flow<TextResponse> =
+        remoteDataSource.add(request).flowOn(Dispatchers.IO)
+
+    @ExperimentalCoroutinesApi
     override fun findAll(forceRefresh: Boolean): Flow<List<TextResponse>> =
         if (forceRefresh) remoteDataSource.findAll() else localDataSource.findAll()
             .flowOn(Dispatchers.IO)

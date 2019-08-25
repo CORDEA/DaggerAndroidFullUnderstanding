@@ -9,9 +9,9 @@ import javax.inject.Singleton
 @Singleton
 class TextLocalDataSource @Inject constructor(
     private val textDao: TextDao
-) : TextDataSource {
-    override fun findAll(): Flow<List<TextResponse>> = flowOf(textDao.getTexts())
+) {
+    fun findAll(): Flow<List<TextResponse>> = flowOf(textDao.getTexts())
 
-    override fun find(id: Long): Flow<TextResponse> =
+    fun find(id: Long): Flow<TextResponse> =
         findAll().map { texts -> texts.first { it.id == id } }
 }
