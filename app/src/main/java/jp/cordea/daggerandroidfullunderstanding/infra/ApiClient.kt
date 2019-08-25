@@ -11,5 +11,6 @@ import javax.inject.Singleton
 class ApiClient @Inject constructor() {
     fun fetchTags(): Flow<List<TagResponse>> = flowOf(emptyList())
 
-    fun fetchTexts(): Flow<List<TextResponse>> = flowOf(emptyList())
+    fun fetchTexts(): Flow<List<TextResponse>> =
+        flowOf((0..50).map { TextResponse(it.toLong(), it.toString()) })
 }
