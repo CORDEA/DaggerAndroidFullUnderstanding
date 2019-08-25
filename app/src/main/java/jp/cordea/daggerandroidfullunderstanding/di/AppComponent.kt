@@ -1,8 +1,10 @@
-package jp.cordea.daggerandroidfullunderstanding
+package jp.cordea.daggerandroidfullunderstanding.di
 
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import jp.cordea.daggerandroidfullunderstanding.ActivityModule
+import jp.cordea.daggerandroidfullunderstanding.App
 import jp.cordea.daggerandroidfullunderstanding.infra.RepositoryModule
 import javax.inject.Singleton
 
