@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edit_text"
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,6 +29,6 @@
         android:text="@string/submit_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/editText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
