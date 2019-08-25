@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
+import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EditTagViewModel @Inject constructor(
-    private val repository: TagRepositoryImpl,
+    private val repository: TagRepository,
     private val itemFactory: EditTagListItem.Factory
 ) : ViewModel() {
     private val _items = MutableLiveData<List<EditTagListItem>>()

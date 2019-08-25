@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
+import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val repository: TextRepositoryImpl,
+    private val repository: TextRepository,
     private val itemFactory: HomeListItem.Factory
 ) : ViewModel() {
     private val _items = MutableLiveData<List<HomeListItem>>()
