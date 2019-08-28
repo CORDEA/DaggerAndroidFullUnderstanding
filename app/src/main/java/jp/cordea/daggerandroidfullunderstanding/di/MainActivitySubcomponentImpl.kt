@@ -17,7 +17,7 @@ import javax.inject.Provider
 class MainActivitySubcomponentImpl(
     private val textRepository: Provider<TextRepositoryImpl>,
     private val tagRepository: Provider<TagRepositoryImpl>,
-    private val mainActivitySubcomponentFactoryProvider: Provider<MainActivityModule_ContributeMainActivity.MainActivitySubcomponent.Factory>
+    private val mainActivitySubcomponentFactoryProvider: Provider<MainActivityModuleContributeMainActivity.Subcomponent.Factory>
 ) : MainActivityModule_ContributeMainActivity.MainActivitySubcomponent {
     private val homeFragmentSubcomponentFactoryProvider =
         Provider { HomeFragmentSubcomponentFactory(textRepository) }

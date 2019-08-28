@@ -6,7 +6,6 @@ import dagger.internal.DoubleCheck
 import jp.cordea.daggerandroidfullunderstanding.App
 import jp.cordea.daggerandroidfullunderstanding.App_MembersInjector
 import jp.cordea.daggerandroidfullunderstanding.MainActivity
-import jp.cordea.daggerandroidfullunderstanding.MainActivityModule_ContributeMainActivity
 import jp.cordea.daggerandroidfullunderstanding.infra.ApiClient_Factory
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.*
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextDao_Factory
@@ -17,9 +16,8 @@ import javax.inject.Provider
 
 class MyDaggerAppComponent : AppComponent {
     private val mainActivitySubcomponentFactoryProvider =
-        object :
-            Provider<MainActivityModule_ContributeMainActivity.MainActivitySubcomponent.Factory> {
-            override fun get(): MainActivityModule_ContributeMainActivity.MainActivitySubcomponent.Factory =
+        object : Provider<MainActivityModuleContributeMainActivity.Subcomponent.Factory> {
+            override fun get(): MainActivityModuleContributeMainActivity.Subcomponent.Factory =
                 MainActivitySubcomponentFactory(
                     textRepositoryImplProvider,
                     tagRepositoryImplProvider,
