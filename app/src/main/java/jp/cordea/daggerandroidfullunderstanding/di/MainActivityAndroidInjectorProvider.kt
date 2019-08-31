@@ -34,10 +34,10 @@ class MainActivityAndroidInjectorProvider(
                     DispatchingAndroidInjector_Factory.newInstance(
                         mapOf<Class<*>, Provider<AndroidInjector.Factory<*>>>(
                             MainActivity::class.java to this,
-                            HomeFragment::class.java to homeFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                            CreateTagFragment::class.java to createTagFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                            EditTagFragment::class.java to editTagFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                            AddBottomSheetDialogFragment::class.java to addBottomSheetDialogFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
+                            HomeFragment::class.java to homeFragmentAndroidInjectorProvider,
+                            CreateTagFragment::class.java to createTagFragmentAndroidInjectorProvider,
+                            EditTagFragment::class.java to editTagFragmentAndroidInjectorProvider,
+                            AddBottomSheetDialogFragment::class.java to addBottomSheetDialogFragmentAndroidInjectorProvider,
                             MenuBottomSheetDialogFragment::class.java to menuBottomSheetDialogFragmentAndroidInjectorProvider
                         ),
                         emptyMap()
