@@ -5,7 +5,7 @@ import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragment
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragmentBindModule
-import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeListItem_Factory_Factory
+import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeListItem
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeViewModel
 import javax.inject.Provider
 
@@ -14,7 +14,7 @@ class HomeFragmentAndroidInjectorProvider(
 ) : Provider<AndroidInjector.Factory<*>> {
     private val homeViewModelProvider =
         Provider {
-            HomeViewModel(textRepository.get(), HomeListItem_Factory_Factory.create().get())
+            HomeViewModel(textRepository.get(), HomeListItem.Factory())
         }
 
     override fun get(): AndroidInjector.Factory<*> =
