@@ -1,10 +1,6 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
-import dagger.Module
-import dagger.Provides
 import dagger.android.AndroidInjector
-import dagger.multibindings.ClassKey
-import dagger.multibindings.IntoMap
 import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory_Factory
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepository
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
@@ -14,18 +10,14 @@ import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagFragment_M
 import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagViewModel_Factory
 import javax.inject.Provider
 
-@Module
-class CreateTagFragmentProvideModule(
+class CreateTagFragmentAndroidInjectorProvider(
     tagRepository: Provider<TagRepositoryImpl>
-) {
+) : Provider<AndroidInjector.Factory<*>> {
     @Suppress("UNCHECKED_CAST")
     private val createTagViewModelProvider =
         CreateTagViewModel_Factory.create(tagRepository as Provider<TagRepository>)
 
-    @Provides
-    @IntoMap
-    @ClassKey(CreateTagFragment::class)
-    fun provideAndroidInjectorFactory(): AndroidInjector.Factory<*> =
+    override fun get(): AndroidInjector.Factory<*> =
         AndroidInjector.Factory<CreateTagFragment> {
             AndroidInjector { instance ->
                 CreateTagFragment_MembersInjector.injectViewModel(
