@@ -19,6 +19,6 @@ abstract class AddBottomSheetDialogFragmentModuleContributeAddBottomSheetDialogF
     @dagger.Subcomponent(modules = [AddBottomSheetDialogFragmentBindModule::class])
     interface Subcomponent : AndroidInjector<AddBottomSheetDialogFragment> {
         @dagger.Subcomponent.Factory
-        interface Factory : AndroidInjector<AddBottomSheetDialogFragment>
+        interface Factory : AndroidInjector.Factory<AddBottomSheetDialogFragment>
     }
 }

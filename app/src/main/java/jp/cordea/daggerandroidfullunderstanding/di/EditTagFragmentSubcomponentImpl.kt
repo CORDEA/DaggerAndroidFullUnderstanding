@@ -9,7 +9,7 @@ import javax.inject.Provider
 class EditTagFragmentSubcomponentImpl(
     private val fragment: EditTagFragment,
     tagRepository: Provider<TagRepositoryImpl>
-) : EditTagFragmentModule_ContributeEditTagFragment.EditTagFragmentSubcomponent {
+) : EditTagFragmentModuleContributeEditTagFragment.Subcomponent {
     @Suppress("UNCHECKED_CAST")
     private val editTagViewModelProvider =
         EditTagViewModel_Factory.create(

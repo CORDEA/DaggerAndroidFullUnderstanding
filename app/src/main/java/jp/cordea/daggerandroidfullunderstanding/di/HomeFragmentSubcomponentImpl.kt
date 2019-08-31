@@ -9,7 +9,7 @@ import javax.inject.Provider
 class HomeFragmentSubcomponentImpl(
     private val fragment: HomeFragment,
     textRepository: Provider<TextRepositoryImpl>
-) : HomeFragmentModule_ContributeHomeFragment.HomeFragmentSubcomponent {
+) : HomeFragmentModuleContributeHomeFragment.Subcomponent {
     @Suppress("UNCHECKED_CAST")
     private val homeViewModelProvider =
         HomeViewModel_Factory.create(

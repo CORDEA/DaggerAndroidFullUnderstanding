@@ -3,7 +3,6 @@ package jp.cordea.daggerandroidfullunderstanding.di
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector_Factory
 import jp.cordea.daggerandroidfullunderstanding.MainActivity
-import jp.cordea.daggerandroidfullunderstanding.MainActivityModule_ContributeMainActivity
 import jp.cordea.daggerandroidfullunderstanding.MainActivity_MembersInjector
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
@@ -18,7 +17,7 @@ class MainActivitySubcomponentImpl(
     private val textRepository: Provider<TextRepositoryImpl>,
     private val tagRepository: Provider<TagRepositoryImpl>,
     private val mainActivitySubcomponentFactoryProvider: Provider<MainActivityModuleContributeMainActivity.Subcomponent.Factory>
-) : MainActivityModule_ContributeMainActivity.MainActivitySubcomponent {
+) : MainActivityModuleContributeMainActivity.Subcomponent {
     private val homeFragmentSubcomponentFactoryProvider =
         Provider { HomeFragmentSubcomponentFactory(textRepository) }
     private val createTagFragmentSubcomponentFactoryProvider =
