@@ -3,7 +3,6 @@ package jp.cordea.daggerandroidfullunderstanding.di
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector_Factory
 import jp.cordea.daggerandroidfullunderstanding.MainActivity
-import jp.cordea.daggerandroidfullunderstanding.MainActivity_MembersInjector
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.add.AddBottomSheetDialogFragment
@@ -31,8 +30,7 @@ class MainActivityAndroidInjectorProvider(
     override fun get(): AndroidInjector.Factory<*> =
         AndroidInjector.Factory<MainActivity> {
             AndroidInjector { instance ->
-                MainActivity_MembersInjector.injectDispatchingAndroidInjector(
-                    instance,
+                instance!!.dispatchingAndroidInjector =
                     DispatchingAndroidInjector_Factory.newInstance(
                         mapOf<Class<*>, Provider<AndroidInjector.Factory<*>>>(
                             MainActivity::class.java to this,
@@ -44,7 +42,6 @@ class MainActivityAndroidInjectorProvider(
                         ),
                         emptyMap()
                     )
-                )
             }
         }
 }

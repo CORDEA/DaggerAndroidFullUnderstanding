@@ -4,7 +4,6 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector_Factory
 import dagger.internal.DoubleCheck
 import jp.cordea.daggerandroidfullunderstanding.App
-import jp.cordea.daggerandroidfullunderstanding.App_MembersInjector
 import jp.cordea.daggerandroidfullunderstanding.MainActivity
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagLocalDataSource
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRemoteDataSource
@@ -43,14 +42,13 @@ class MyDaggerAppComponent : AppComponent {
         MainActivityAndroidInjectorProvider(textRepositoryImplProvider, tagRepositoryImplProvider)
 
     @Suppress("UNCHECKED_CAST")
-    override fun inject(instance: App?) =
-        App_MembersInjector.injectDispatchingAndroidInjector(
-            instance,
+    override fun inject(instance: App?) {
+        instance!!.dispatchingAndroidInjector =
             DispatchingAndroidInjector_Factory.newInstance(
                 mapOf<Class<*>, Provider<AndroidInjector.Factory<*>>>(
                     MainActivity::class.java to mainActivitySubcomponentFactoryProvider as Provider<AndroidInjector.Factory<*>>
                 ),
                 emptyMap()
             )
-        )
+    }
 }
