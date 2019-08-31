@@ -1,8 +1,8 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector_Factory
 import jp.cordea.daggerandroidfullunderstanding.MainActivity
+import jp.cordea.daggerandroidfullunderstanding.di.injector.MyDispatchingAndroidInjector
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.add.AddBottomSheetDialogFragment
@@ -31,8 +31,8 @@ class MainActivityAndroidInjectorProvider(
         AndroidInjector.Factory<MainActivity> {
             AndroidInjector { instance ->
                 instance!!.dispatchingAndroidInjector =
-                    DispatchingAndroidInjector_Factory.newInstance(
-                        mapOf<Class<*>, Provider<AndroidInjector.Factory<*>>>(
+                    MyDispatchingAndroidInjector(
+                        mapOf(
                             MainActivity::class.java to this,
                             HomeFragment::class.java to homeFragmentAndroidInjectorProvider,
                             CreateTagFragment::class.java to createTagFragmentAndroidInjectorProvider,

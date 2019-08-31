@@ -8,8 +8,8 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import jp.cordea.daggerandroidfullunderstanding.di.injector.MyDispatchingAndroidInjector
 import jp.cordea.daggerandroidfullunderstanding.ui.add.AddBottomSheetDialogFragment
 import jp.cordea.daggerandroidfullunderstanding.ui.menu.MenuBottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    lateinit var dispatchingAndroidInjector: MyDispatchingAndroidInjector<Any>
 
     private val navController by lazy { findNavController(R.id.main_nav_fragment) }
 
