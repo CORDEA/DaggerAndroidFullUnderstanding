@@ -1,25 +1,21 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
 import dagger.android.AndroidInjector
-import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory_Factory
-import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepository
+import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragment
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragmentBindModule
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeListItem_Factory_Factory
-import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeViewModel_Factory
+import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeViewModel
 import javax.inject.Provider
 
 class HomeFragmentAndroidInjectorProvider(
     textRepository: Provider<TextRepositoryImpl>
 ) : Provider<AndroidInjector.Factory<*>> {
-
-    @Suppress("UNCHECKED_CAST")
     private val homeViewModelProvider =
-        HomeViewModel_Factory.create(
-            textRepository as Provider<TextRepository>,
-            HomeListItem_Factory_Factory.create()
-        )
+        Provider {
+            HomeViewModel(textRepository.get(), HomeListItem_Factory_Factory.create().get())
+        }
 
     override fun get(): AndroidInjector.Factory<*> =
         AndroidInjector.Factory<HomeFragment> {
@@ -27,7 +23,7 @@ class HomeFragmentAndroidInjectorProvider(
                 instance!!.viewModel =
                     HomeFragmentBindModule.provideViewModel(
                         instance,
-                        ViewModelFactory_Factory.newInstance(homeViewModelProvider)
+                        ViewModelFactory(homeViewModelProvider)
                     )
             }
         }
