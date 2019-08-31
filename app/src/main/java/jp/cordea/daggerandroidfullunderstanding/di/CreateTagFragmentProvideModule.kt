@@ -1,5 +1,10 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
+import dagger.Module
+import dagger.Provides
+import dagger.android.AndroidInjector
+import dagger.multibindings.ClassKey
+import dagger.multibindings.IntoMap
 import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory_Factory
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepository
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
@@ -9,21 +14,27 @@ import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagFragment_M
 import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagViewModel_Factory
 import javax.inject.Provider
 
-class CreateTagFragmentSubcomponentImpl(
-    private val fragment: CreateTagFragment,
+@Module
+class CreateTagFragmentProvideModule(
     tagRepository: Provider<TagRepositoryImpl>
-) : CreateTagFragmentModuleContributeCreateTagFragment.Subcomponent {
+) {
     @Suppress("UNCHECKED_CAST")
     private val createTagViewModelProvider =
         CreateTagViewModel_Factory.create(tagRepository as Provider<TagRepository>)
 
-    override fun inject(instance: CreateTagFragment?) {
-        CreateTagFragment_MembersInjector.injectViewModel(
-            instance,
-            CreateTagFragmentBindModule_ProvideViewModelFactory.provideViewModel(
-                fragment,
-                ViewModelFactory_Factory.newInstance(createTagViewModelProvider)
-            )
-        )
-    }
+    @Provides
+    @IntoMap
+    @ClassKey(CreateTagFragment::class)
+    fun provideAndroidInjectorFactory(): AndroidInjector.Factory<*> =
+        AndroidInjector.Factory<CreateTagFragment> {
+            AndroidInjector { instance ->
+                CreateTagFragment_MembersInjector.injectViewModel(
+                    instance,
+                    CreateTagFragmentBindModule_ProvideViewModelFactory.provideViewModel(
+                        instance!!,
+                        ViewModelFactory_Factory.newInstance(createTagViewModelProvider)
+                    )
+                )
+            }
+        }
 }
