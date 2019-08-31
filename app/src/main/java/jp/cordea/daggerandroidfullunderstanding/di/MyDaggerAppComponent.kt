@@ -6,39 +6,36 @@ import dagger.internal.DoubleCheck
 import jp.cordea.daggerandroidfullunderstanding.App
 import jp.cordea.daggerandroidfullunderstanding.App_MembersInjector
 import jp.cordea.daggerandroidfullunderstanding.MainActivity
-import jp.cordea.daggerandroidfullunderstanding.infra.ApiClient_Factory
-import jp.cordea.daggerandroidfullunderstanding.infra.tag.*
-import jp.cordea.daggerandroidfullunderstanding.infra.text.TextDao_Factory
-import jp.cordea.daggerandroidfullunderstanding.infra.text.TextLocalDataSource_Factory
-import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRemoteDataSource_Factory
-import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl_Factory
+import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagLocalDataSource
+import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRemoteDataSource
+import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
 import javax.inject.Provider
 
 class MyDaggerAppComponent : AppComponent {
-    private val textDaoProvider = DoubleCheck.provider(TextDao_Factory.create())
-    private val tagDaoProvider = DoubleCheck.provider(TagDao_Factory.create())
-    private val apiClientProvider = DoubleCheck.provider(ApiClient_Factory.create())
+    private val textDaoProvider = DoubleCheck.provider(TextDaoProvider)
+    private val tagDaoProvider = DoubleCheck.provider(TagDaoProvider)
+    private val apiClientProvider = DoubleCheck.provider(ApiClientProvider)
 
     private val textLocalDataSourceProvider =
-        DoubleCheck.provider(TextLocalDataSource_Factory.create(textDaoProvider))
+        DoubleCheck.provider(TextLocalDataSourceProvider(textDaoProvider))
     private val textRemoteDataSourceProvider =
-        DoubleCheck.provider(TextRemoteDataSource_Factory.create(apiClientProvider))
+        DoubleCheck.provider(TextRemoteDataSourceProvider(apiClientProvider))
     private val textRepositoryImplProvider = DoubleCheck.provider(
-        TextRepositoryImpl_Factory.create(
-            textLocalDataSourceProvider,
-            textRemoteDataSourceProvider
+        TextRepositoryImplProvider(
+            textRemoteDataSourceProvider,
+            textLocalDataSourceProvider
         )
     )
 
     private val tagLocalDataSourceProvider: Provider<TagLocalDataSource> =
-        DoubleCheck.provider(TagLocalDataSource_Factory.create(tagDaoProvider))
+        DoubleCheck.provider(TagLocalDataSourceProvider(tagDaoProvider))
     private val tagRemoteDataSourceProvider: Provider<TagRemoteDataSource> =
-        DoubleCheck.provider(TagRemoteDataSource_Factory.create(apiClientProvider))
+        DoubleCheck.provider(TagRemoteDataSourceProvider(apiClientProvider))
     private val tagRepositoryImplProvider: Provider<TagRepositoryImpl> =
         DoubleCheck.provider(
-            TagRepositoryImpl_Factory.create(
-                tagLocalDataSourceProvider,
-                tagRemoteDataSourceProvider
+            TagRepositoryImplProvider(
+                tagRemoteDataSourceProvider,
+                tagLocalDataSourceProvider
             )
         )
 
