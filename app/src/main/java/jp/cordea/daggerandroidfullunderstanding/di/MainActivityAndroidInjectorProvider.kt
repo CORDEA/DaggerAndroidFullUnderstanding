@@ -13,11 +13,10 @@ import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragment
 import jp.cordea.daggerandroidfullunderstanding.ui.menu.MenuBottomSheetDialogFragment
 import javax.inject.Provider
 
-class MainActivitySubcomponentImpl(
+class MainActivityAndroidInjectorProvider(
     textRepository: Provider<TextRepositoryImpl>,
-    tagRepository: Provider<TagRepositoryImpl>,
-    private val mainActivitySubcomponentFactoryProvider: Provider<MainActivityModuleContributeMainActivity.Subcomponent.Factory>
-) : MainActivityModuleContributeMainActivity.Subcomponent {
+    tagRepository: Provider<TagRepositoryImpl>
+) : Provider<AndroidInjector.Factory<*>> {
     private val menuBottomSheetDialogFragmentAndroidInjectorProvider =
         MenuBottomSheetDialogFragmentAndroidInjectorProvider()
     private val homeFragmentAndroidInjectorProvider =
@@ -29,21 +28,23 @@ class MainActivitySubcomponentImpl(
     private val editTagFragmentAndroidInjectorProvider =
         EditTagFragmentAndroidInjectorProvider(tagRepository)
 
-    override fun inject(instance: MainActivity?) {
-        @Suppress("UNCHECKED_CAST")
-        MainActivity_MembersInjector.injectDispatchingAndroidInjector(
-            instance,
-            DispatchingAndroidInjector_Factory.newInstance(
-                mapOf<Class<*>, Provider<AndroidInjector.Factory<*>>>(
-                    MainActivity::class.java to mainActivitySubcomponentFactoryProvider as Provider<AndroidInjector.Factory<*>>,
-                    HomeFragment::class.java to homeFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                    CreateTagFragment::class.java to createTagFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                    EditTagFragment::class.java to editTagFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                    AddBottomSheetDialogFragment::class.java to addBottomSheetDialogFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
-                    MenuBottomSheetDialogFragment::class.java to menuBottomSheetDialogFragmentAndroidInjectorProvider
-                ),
-                emptyMap()
-            )
-        )
-    }
+    override fun get(): AndroidInjector.Factory<*> =
+        AndroidInjector.Factory<MainActivity> {
+            AndroidInjector { instance ->
+                MainActivity_MembersInjector.injectDispatchingAndroidInjector(
+                    instance,
+                    DispatchingAndroidInjector_Factory.newInstance(
+                        mapOf<Class<*>, Provider<AndroidInjector.Factory<*>>>(
+                            MainActivity::class.java to this,
+                            HomeFragment::class.java to homeFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
+                            CreateTagFragment::class.java to createTagFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
+                            EditTagFragment::class.java to editTagFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
+                            AddBottomSheetDialogFragment::class.java to addBottomSheetDialogFragmentAndroidInjectorProvider as Provider<AndroidInjector.Factory<*>>,
+                            MenuBottomSheetDialogFragment::class.java to menuBottomSheetDialogFragmentAndroidInjectorProvider
+                        ),
+                        emptyMap()
+                    )
+                )
+            }
+        }
 }

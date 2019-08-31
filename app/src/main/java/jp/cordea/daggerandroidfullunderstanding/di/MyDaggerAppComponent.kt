@@ -15,16 +15,6 @@ import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl_Fa
 import javax.inject.Provider
 
 class MyDaggerAppComponent : AppComponent {
-    private val mainActivitySubcomponentFactoryProvider =
-        object : Provider<MainActivityModuleContributeMainActivity.Subcomponent.Factory> {
-            override fun get(): MainActivityModuleContributeMainActivity.Subcomponent.Factory =
-                MainActivitySubcomponentFactory(
-                    textRepositoryImplProvider,
-                    tagRepositoryImplProvider,
-                    this
-                )
-        }
-
     private val textDaoProvider = DoubleCheck.provider(TextDao_Factory.create())
     private val tagDaoProvider = DoubleCheck.provider(TagDao_Factory.create())
     private val apiClientProvider = DoubleCheck.provider(ApiClient_Factory.create())
@@ -51,6 +41,9 @@ class MyDaggerAppComponent : AppComponent {
                 tagRemoteDataSourceProvider
             )
         )
+
+    private val mainActivitySubcomponentFactoryProvider =
+        MainActivityAndroidInjectorProvider(textRepositoryImplProvider, tagRepositoryImplProvider)
 
     @Suppress("UNCHECKED_CAST")
     override fun inject(instance: App?) =
