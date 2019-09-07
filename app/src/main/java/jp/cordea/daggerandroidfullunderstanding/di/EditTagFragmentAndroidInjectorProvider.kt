@@ -1,10 +1,10 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
+import androidx.fragment.app.createViewModelLazy
 import dagger.android.AndroidInjector
 import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.edittag.EditTagFragment
-import jp.cordea.daggerandroidfullunderstanding.ui.edittag.EditTagFragmentBindModule
 import jp.cordea.daggerandroidfullunderstanding.ui.edittag.EditTagListItem
 import jp.cordea.daggerandroidfullunderstanding.ui.edittag.EditTagViewModel
 import javax.inject.Provider
@@ -21,9 +21,10 @@ class EditTagFragmentAndroidInjectorProvider(
         AndroidInjector.Factory<EditTagFragment> {
             AndroidInjector { instance ->
                 instance!!.viewModel =
-                    EditTagFragmentBindModule.provideViewModel(
-                        instance,
-                        ViewModelFactory(editTagViewModelProvider)
+                    instance.createViewModelLazy(
+                        EditTagViewModel::class,
+                        { instance.viewModelStore },
+                        { ViewModelFactory(editTagViewModelProvider) }
                     )
             }
         }

@@ -1,10 +1,10 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
+import androidx.fragment.app.createViewModelLazy
 import dagger.android.AndroidInjector
 import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.add.AddBottomSheetDialogFragment
-import jp.cordea.daggerandroidfullunderstanding.ui.add.AddBottomSheetDialogFragmentBindModule
 import jp.cordea.daggerandroidfullunderstanding.ui.add.AddViewModel
 import javax.inject.Provider
 
@@ -17,9 +17,10 @@ class AddBottomSheetDialogFragmentAndroidInjectorProvider(
         AndroidInjector.Factory<AddBottomSheetDialogFragment> {
             AndroidInjector { instance ->
                 instance!!.viewModel =
-                    AddBottomSheetDialogFragmentBindModule.provideViewModel(
-                        instance,
-                        ViewModelFactory(addViewModelProvider)
+                    instance.createViewModelLazy(
+                        AddViewModel::class,
+                        { instance.viewModelStore },
+                        { ViewModelFactory(addViewModelProvider) }
                     )
             }
         }

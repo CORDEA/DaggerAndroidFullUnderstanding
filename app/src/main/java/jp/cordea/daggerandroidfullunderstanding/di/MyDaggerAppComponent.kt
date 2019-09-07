@@ -16,7 +16,7 @@ import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRemoteDataSource
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import javax.inject.Provider
 
-class MyDaggerAppComponent : AppComponent {
+class MyDaggerAppComponent : AndroidInjector<App> {
     private val textDaoProvider = DoubleCheck.provider(Provider { TextDao() })
     private val tagDaoProvider = DoubleCheck.provider(Provider { TagDao() })
     private val apiClientProvider = DoubleCheck.provider(Provider { ApiClient() })

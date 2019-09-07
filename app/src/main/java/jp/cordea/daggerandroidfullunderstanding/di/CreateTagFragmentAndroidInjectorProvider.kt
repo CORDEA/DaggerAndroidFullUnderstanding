@@ -1,10 +1,10 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
+import androidx.fragment.app.createViewModelLazy
 import dagger.android.AndroidInjector
 import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 import jp.cordea.daggerandroidfullunderstanding.infra.tag.TagRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagFragment
-import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagFragmentBindModule
 import jp.cordea.daggerandroidfullunderstanding.ui.createtag.CreateTagViewModel
 import javax.inject.Provider
 
@@ -17,9 +17,10 @@ class CreateTagFragmentAndroidInjectorProvider(
         AndroidInjector.Factory<CreateTagFragment> {
             AndroidInjector { instance ->
                 instance!!.viewModel =
-                    CreateTagFragmentBindModule.provideViewModel(
-                        instance,
-                        ViewModelFactory(createTagViewModelProvider)
+                    instance.createViewModelLazy(
+                        CreateTagViewModel::class,
+                        { instance.viewModelStore },
+                        { ViewModelFactory(createTagViewModelProvider) }
                     )
             }
         }

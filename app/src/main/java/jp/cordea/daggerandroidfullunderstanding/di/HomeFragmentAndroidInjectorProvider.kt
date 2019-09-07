@@ -1,10 +1,10 @@
 package jp.cordea.daggerandroidfullunderstanding.di
 
+import androidx.fragment.app.createViewModelLazy
 import dagger.android.AndroidInjector
 import jp.cordea.daggerandroidfullunderstanding.ViewModelFactory
 import jp.cordea.daggerandroidfullunderstanding.infra.text.TextRepositoryImpl
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragment
-import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeFragmentBindModule
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeListItem
 import jp.cordea.daggerandroidfullunderstanding.ui.home.HomeViewModel
 import javax.inject.Provider
@@ -21,9 +21,10 @@ class HomeFragmentAndroidInjectorProvider(
         AndroidInjector.Factory<HomeFragment> {
             AndroidInjector { instance ->
                 instance!!.viewModel =
-                    HomeFragmentBindModule.provideViewModel(
-                        instance,
-                        ViewModelFactory(homeViewModelProvider)
+                    instance.createViewModelLazy(
+                        HomeViewModel::class,
+                        { instance.viewModelStore },
+                        { ViewModelFactory(homeViewModelProvider) }
                     )
             }
         }
